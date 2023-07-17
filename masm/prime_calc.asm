@@ -1,10 +1,4 @@
-TITLE Project 4 - Nested Loops and Procedures  (Proj3_ovenshir.asm)
 
-; Author: Riley Ovenshire
-; Last Modified: 2/26/2023
-; OSU email address: ovenshir@oregonstate.edu
-; Course number/section:   CS271 Section 400
-; Project Number:  4               Due Date: 2/26/2023 @ 12:00 AM
 ; Description: Program takes a number from a user between [1, 200] and shows them that amount of prime numbers. 
 
 INCLUDE Irvine32.inc
