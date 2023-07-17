@@ -1,10 +1,4 @@
-TITLE Arrays, Addressing, and Stack-Passed Parameters    (proj5_ovenshir.asm)
 
-; Author: Riley Ovenshire
-; Last Modified:3/4/2023
-; OSU email address: ovenshir@oregonstate.edu
-; Course number/section:   CS271 Section 400
-; Project Number:  5               Due Date: 3/5/2023
 ; Description: This program will generate 200 random integers between 15 and 50, inclusive. It will display
 ;				the original list, sort that list, display the median value of the list, display the list in ascending order,
 ;				and dispay the number of instances for each generated value from lowest to highest.
