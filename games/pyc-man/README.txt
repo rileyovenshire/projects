@@ -5,7 +5,6 @@ Each file should have a solid amount of documentation included, there are docstr
 Comments are there, but limited, as I wanted to make sure they weren't clogging the code. Again, this was a total learning process so bear with me!
 
 THIS CODE IS NOT FULLY ORIGINAL, I REFERENCED THIS SOURCE OFTEN:
-
 SOURCE: https://pacmancode.com/
 
 This project would NOT have been possible if it weren't for the incredible guide that was put out on this site. I want to give this developer full credit for their efforts
