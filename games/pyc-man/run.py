@@ -10,6 +10,7 @@ class GameController(object):
         pygame.init()
         self.screen = pygame.display.set_mode(SCREENSIZE, 0, 32)
         self.background = None
+        self.clock = pygame.time.Clock()
 
     def start_game(self):
         """
@@ -21,6 +22,7 @@ class GameController(object):
         """
         Update the game
         """
+        dt = self.clock.tick(30) / 1000.0
         self.check_events()
         self.render()
 
