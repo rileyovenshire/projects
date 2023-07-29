@@ -30,68 +30,67 @@ class Spritesheet(object):
 
 
 class PycmanSprites(Spritesheet):
-    class PacmanSprites(Spritesheet):
-        def __init__(self, entity):
-            Spritesheet.__init__(self)
-            self.entity = entity
-            self.entity.image = self.get_start_image()
-            self.animations = {}
-            self.define_animations()
-            self.stop_image = (8, 0)
+    def __init__(self, entity):
+        Spritesheet.__init__(self)
+        self.entity = entity
+        self.entity.image = self.get_start_image()
+        self.animations = {}
+        self.define_animations()
+        self.stop_image = (8, 0)
 
-        def define_animations(self):
-            """
+    def define_animations(self):
+        """
             Define animations for pycman
             """
-            self.animations[LEFT] = Animator(((8, 0), (0, 0), (0, 2), (0, 0)))
-            self.animations[RIGHT] = Animator(((10, 0), (2, 0), (2, 2), (2, 0)))
-            self.animations[UP] = Animator(((10, 2), (6, 0), (6, 2), (6, 0)))
-            self.animations[DOWN] = Animator(((8, 2), (4, 0), (4, 2), (4, 0)))
-            self.animations[DEATH] = Animator((
-                (0, 12), (2, 12), (4, 12), (6, 12), (8, 12), (10, 12), (12, 12), (14, 12),
-                (16, 12), (18, 12), (20, 12)), speed=6, loop=False)
+        self.animations[LEFT] = Animator(((8, 0), (0, 0), (0, 2), (0, 0)))
+        self.animations[RIGHT] = Animator(((10, 0), (2, 0), (2, 2), (2, 0)))
+        self.animations[UP] = Animator(((10, 2), (6, 0), (6, 2), (6, 0)))
+        self.animations[DOWN] = Animator(((8, 2), (4, 0), (4, 2), (4, 0)))
+        self.animations[DEATH] = Animator((
+            (0, 12), (2, 12), (4, 12), (6, 12), (8, 12), (10, 12), (12, 12), (14, 12),
+            (16, 12), (18, 12), (20, 12)), speed=6, loop=False)
 
-        def update(self, dt):
-            """
+    def update(self, dt):
+        """
             Update the animation
             """
-            if self.entity.alive:
-                if self.entity.direction == LEFT:
-                    self.entity.image = self.get_image(*self.animations[LEFT].update(dt))
-                    self.stop_image = (8, 0)
-                elif self.entity.direction == RIGHT:
-                    self.entity.image = self.get_image(*self.animations[RIGHT].update(dt))
-                    self.stop_image = (10, 0)
-                elif self.entity.direction == DOWN:
-                    self.entity.image = self.get_image(*self.animations[DOWN].update(dt))
-                    self.stop_image = (8, 2)
-                elif self.entity.direction == UP:
-                    self.entity.image = self.get_image(*self.animations[UP].update(dt))
-                    self.stop_image = (10, 2)
-                elif self.entity.direction == STOP:
-                    self.entity.image = self.get_image(*self.stop_image)
+        if self.entity.alive:
+            if self.entity.direction == LEFT:
+                self.entity.image = self.get_image(*self.animations[LEFT].update(dt))
+                self.stop_image = (8, 0)
+            elif self.entity.direction == RIGHT:
+                self.entity.image = self.get_image(*self.animations[RIGHT].update(dt))
+                self.stop_image = (10, 0)
+            elif self.entity.direction == DOWN:
+                self.entity.image = self.get_image(*self.animations[DOWN].update(dt))
+                self.stop_image = (8, 2)
+            elif self.entity.direction == UP:
+                self.entity.image = self.get_image(*self.animations[UP].update(dt))
+                self.stop_image = (10, 2)
+            elif self.entity.direction == STOP:
+                self.entity.image = self.get_image(*self.stop_image)
 
-            else:
-                self.entity.image = self.get_image(*self.animations[DEATH].update(dt))
+        else:
+            self.entity.image = self.get_image(*self.animations[DEATH].update(dt))
 
-        def reset(self):
-            """
+    def reset(self):
+        """
             Reset the animation
             """
-            for key in list(self.animations.keys()):
-                self.animations[key].reset()
+        for key in list(self.animations.keys()):
+            self.animations[key].reset()
 
-        def get_start_image(self):
-            """
+    def get_start_image(self):
+        """
             Get the start image
             """
-            return self.get_image(8, 0)
+        return self.get_image(8, 0)
 
-        def get_image(self, x, y):
-            """
+    def get_image(self, x, y):
+        """
             Get image from spritesheet
             """
-            return Spritesheet.get_image(self, x, y, 2 * TILEWIDTH, 2 * TILEHEIGHT)
+        return Spritesheet.get_image(self, x, y, 2 * TILEWIDTH, 2 * TILEHEIGHT)
 
 
 class GhostSprites(Spritesheet):
@@ -186,6 +185,7 @@ class LifeSprites(Spritesheet):
         """
         return Spritesheet.get_image(self, x, y, 2 * TILEWIDTH, 2 * TILEHEIGHT)
 
+
 class MazeSprites(Spritesheet):
     def __init__(self, mazefile, rotfile):
         Spritesheet.__init__(self)
@@ -215,10 +215,10 @@ class MazeSprites(Spritesheet):
                     sprite = self.get_image(x, y)
                     rotval = int(self.rotdata[row][col])
                     sprite = self.rotate(sprite, rotval)
-                    background.blit(sprite, (col*TILEWIDTH, row*TILEHEIGHT))
+                    background.blit(sprite, (col * TILEWIDTH, row * TILEHEIGHT))
                 elif self.data[row][col] == '=':
                     sprite = self.get_image(10, 8)
-                    background.blit(sprite, (col*TILEWIDTH, row*TILEHEIGHT))
+                    background.blit(sprite, (col * TILEWIDTH, row * TILEHEIGHT))
 
         return background
 
@@ -226,4 +226,4 @@ class MazeSprites(Spritesheet):
         """
         Rotate the sprite
         """
-        return pygame.transform.rotate(sprite, value*90)
+        return pygame.transform.rotate(sprite, value * 90)

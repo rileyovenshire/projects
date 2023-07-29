@@ -6,16 +6,17 @@ from vector import Vector2
 from constants import *
 from random import randint
 
+
 class Entity(object):
     def __init__(self, node):
         self.name = None
-        self.directions = {UP:Vector2(0, -1),DOWN:Vector2(0, 1),
-                          LEFT:Vector2(-1, 0), RIGHT:Vector2(1, 0), STOP:Vector2()}
+        self.directions = {UP: Vector2(0, -1), DOWN: Vector2(0, 1),
+                           LEFT: Vector2(-1, 0), RIGHT: Vector2(1, 0), STOP: Vector2()}
         self.direction = STOP
         self.set_speed(100)
         self.radius = 10
         self.collide_radius = 5
-        self.color = WHITE    # default
+        self.color = WHITE  # default
         self.visible = True
         self.disable_portal = False
         self.goal = None
@@ -37,11 +38,12 @@ class Entity(object):
 
         if self.overshot_target():
             self.node = self.target
-            directions = self.get_valid_directions()
+            directions = self.valid_directions()
             direction = self.direction_method(directions)
 
-            if not self.disable_portal and self.node.neighbors[PORTAL] is not None:
-                self.node = self.node.neighbors[PORTAL]
+            if not self.disable_portal:
+                if self.node.neighbors[PORTAL] is not None:
+                    self.node = self.node.neighbors[PORTAL]
 
             self.target = self.get_new_target(direction)
             if self.target is not self.node:
@@ -49,15 +51,16 @@ class Entity(object):
             else:
                 self.target = self.get_new_target(self.direction)
 
-        self.set_position()
+            self.set_position()
 
     def get_valid_directions(self, direction):
         """
         Checks to see if directions are valid
         """
         if direction is not STOP:
-            if self.name in self.node.access[direction] and self.node.neighbors[direction] is not None:
-                return True
+            if self.name in self.node.access[direction]:
+                if self.node.neighbors[direction] is not None:
+                    return True
         return False
 
     def get_new_target(self, direction):
@@ -123,7 +126,7 @@ class Entity(object):
         """
         dist = []
         for direction in directions:
-            vec = self.node.position + self.directions[direction]*TILEWIDTH - self.goal
+            vec = self.node.position + self.directions[direction] * TILEWIDTH - self.goal
             dist.append(vec.magnitude_squared())
         index = dist.index(min(dist))
         return directions[index]
@@ -166,9 +169,9 @@ class Entity(object):
         """
         if self.visible:
             if self.image is not None:
-                adjustment = Vector2(TILEWIDTH / 2, TILEHEIGHT / 2)
-                pos = self.position - adjustment
-                screen.blit(self.image, pos.as_tuple())
+                adjust = Vector2(TILEWIDTH, TILEHEIGHT) / 2
+                p = self.position - adjust
+                screen.blit(self.image, p.as_tuple())
             else:
-                pos = self.position.as_int()
-                pygame.draw.circle(screen, self.color, pos, self.radius)
+                p = self.position.as_int()
+                pygame.draw.circle(screen, self.color, p, self.radius)

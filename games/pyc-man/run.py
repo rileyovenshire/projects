@@ -26,10 +26,11 @@ class GameController(object):
         self.background_flash = None
         self.clock = pygame.time.Clock()
         self.fruit = None
-        self.level = 0
+        self.pause = Pause(True)
+        self.level = 1
         self.lives = 3
         self.score = 0
-        self.text = TextGroup()
+        self.textgroup = TextGroup()
         self.life_sprites = LifeSprites(self.lives)
         self.flash_bg = False
         self.flash_time = 0.2
@@ -38,19 +39,33 @@ class GameController(object):
         self.fruit_nodes = None
         self.maze_data = MazeData()
 
+    def set_background(self):
+        """
+        Set the background of the game
+        """
+        self.background_normal = pygame.surface.Surface(SCREENSIZE).convert()
+        self.background_normal.fill(BLACK)
+        self.background_flash = pygame.surface.Surface(SCREENSIZE).convert()
+        self.background_flash.fill(BLACK)
+        self.background_normal = self.mazesprites.construct_background(self.background_normal, self.level % 5)
+        self.background_flash = self.mazesprites.construct_background(self.background_flash, 5)
+        self.flash_bg = False
+        self.background = self.background_normal
+
     def start_game(self):
         """
         Creates instance of the game.
         """
         self.maze_data.load_maze(self.level)
-        self.mazesprites = MazeSprites(self.maze_data.obj.name+".txt", self.maze_data.obj.name+"_rotation.txt")
+        self.mazesprites = MazeSprites(self.maze_data.obj.name + ".txt", self.maze_data.obj.name + "_rotation.txt")
         self.set_background()
-        self.nodes = NodeGroup(self.maze_data.obj.name+".txt")
+        self.nodes = NodeGroup(self.maze_data.obj.name + ".txt")
         self.maze_data.obj.set_portal_pairs(self.nodes)
         self.maze_data.obj.connect_home_nodes(self.nodes)
         self.pycman = Pycman(self.nodes.get_node_from_grid(*self.maze_data.obj.pycman_start))
-        self.pellets = PelletGroup(self.maze_data.obj.name+".txt")
+        self.pellets = PelletGroup(self.maze_data.obj.name + ".txt")
         self.ghosts = GhostGroup(self.nodes.get_start_temp_node(), self.pycman)
+
         self.ghosts.pinky.set_start_node(self.nodes.get_node_from_grid(*self.maze_data.obj.add_offset(2, 3)))
         self.ghosts.inky.set_start_node(self.nodes.get_node_from_grid(*self.maze_data.obj.add_offset(0, 3)))
         self.ghosts.clyde.set_start_node(self.nodes.get_node_from_grid(*self.maze_data.obj.add_offset(4, 3)))
@@ -61,8 +76,7 @@ class GameController(object):
         self.nodes.deny_home_access_list(self.ghosts)
         self.ghosts.inky.start_node.deny_access(RIGHT, self.ghosts.inky)
         self.ghosts.clyde.start_node.deny_access(LEFT, self.ghosts.clyde)
-        self.maze_data.obj.deny_ghost_access(self.ghosts, self.nodes)
-
+        self.maze_data.obj.deny_ghosts_access(self.ghosts, self.nodes)
 
     def update(self):
         """
@@ -79,8 +93,9 @@ class GameController(object):
             self.check_ghost_events()
             self.check_fruit_events()
 
-        if self.pycman.alive and not self.pause.paused:
-            self.pycman.update(dt)
+        if self.pycman.alive:
+            if not self.pause.paused:
+                self.pycman.update(dt)
         else:
             self.pycman.update(dt)
 
@@ -99,18 +114,6 @@ class GameController(object):
         self.check_events()
         self.render()
 
-    def set_background(self):
-        """
-        Set the background of the game
-        """
-        self.background_normal = pygame.surface.Surface(SCREENSIZE).convert()
-        self.background_normal.fill(BLACK)
-        self.background_flash = pygame.surface.Surface(SCREENSIZE).convert()
-        self.background_flash.fill(BLACK)
-        self.background_normal = self.mazesprites.construct_background(self.background_normal, self.level % 5)
-        self.background_flash = self.mazesprites.construct_background(self.background_flash, 5)
-        self.flash_bg = False
-        self.background = self.background_normal
 
     def check_events(self):
         """
@@ -120,7 +123,7 @@ class GameController(object):
             if event.type == QUIT:
                 exit()
             elif event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
+                if event.key == K_SPACE:
                     if self.pycman.alive:
                         self.pause.set_pause(player_paused=True)
                         if not self.pause.paused:
@@ -137,7 +140,7 @@ class GameController(object):
         if pellet:
             self.pellets.num_eaten += 1
             self.update_score(pellet.points)
-            if self.pellets.num_eaten ==30:
+            if self.pellets.num_eaten == 30:
                 self.ghosts.inky.start_node.allow_access(RIGHT, self.ghosts.inky)
             elif self.pellets.num_eaten == 70:
                 self.ghosts.clyde.start_node.allow_access(LEFT, self.ghosts.clyde)
@@ -187,7 +190,8 @@ class GameController(object):
             if self.fruit is not None:
                 if self.pycman.collision(self.fruit):
                     self.update_score(self.fruit.points)
-                    self.textgroup.add_text(str(self.fruit.points), WHITE, self.fruit.position.x, self.fruit.position.y, 8, time=1)
+                    self.textgroup.add_text(str(self.fruit.points), WHITE, self.fruit.position.x, self.fruit.position.y,
+                                            8, time=1)
                     fruit_eaten = False
                     for fruit in self.fruit_eaten:
                         if fruit.get_offset() == self.fruit.image.get_offset():
@@ -265,10 +269,10 @@ class GameController(object):
         self.ghosts.render(self.screen)
         self.textgroup.render(self.screen)
 
-        for i in range(len(self.life_sprites.image)):
-            x = self.life_sprites.image[i].get_width() * i
-            y = SCREENHEIGHT - self.life_sprites.image[i].get_height()
-            self.screen.blit(self.life_sprites.image[i], (x, y))
+        for i in range(len(self.life_sprites.images)):
+            x = self.life_sprites.images[i].get_width() * i
+            y = SCREENHEIGHT - self.life_sprites.images[i].get_height()
+            self.screen.blit(self.life_sprites.images[i], (x, y))
 
         for i in range(len(self.fruit_eaten)):
             x = SCREENWIDTH - self.fruit_eaten[i].get_width() * (i + 1)
@@ -276,12 +280,6 @@ class GameController(object):
             self.screen.blit(self.fruit_eaten[i], (x, y))
 
         pygame.display.update()
-
-
-
-
-
-
 
 
 # -------------------------------------------------

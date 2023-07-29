@@ -8,8 +8,9 @@ from entity import Entity
 from modes import ModeController
 from sprites import GhostSprites
 
+
 class Ghost(Entity):
-    def __init__(self, node, pacman=None, blinky=None):
+    def __init__(self, node, pycman=None, blinky=None):
         Entity.__init__(self, node)
         self.name = GHOST
         self.points = 200
@@ -91,12 +92,14 @@ class Ghost(Entity):
         self.direction_method = self.goal_direction
         self.home_node.deny_access(DOWN, self)
 
+
 class Blinky(Ghost):
     def __init__(self, node, pycman=None, blinky=None):
         Ghost.__init__(self, node, pycman, blinky)
         self.name = BLINKY
         self.color = RED
         self.sprites = GhostSprites(self)
+
 
 class Pinky(Ghost):
     def __init__(self, node, pycman=None, blinky=None):
@@ -109,13 +112,14 @@ class Pinky(Ghost):
         """
         Pinky scatters to the top left corner
         """
-        self.goal = Vector2(TILEWIDTH*NCOLS, 0)
+        self.goal = Vector2(TILEWIDTH * NCOLS, 0)
 
     def chase(self):
         """
         Pinky chases four tiles ahead of pycman
         """
-        self.goal = self.pycman.position + self.pycman.direction * 4 * TILEWIDTH
+        self.goal = self.pycman.position + self.pycman.directions[self.pycman.direction] * 4 * TILEWIDTH
+
 
 class Inky(Ghost):
     def __init__(self, node, pycman=None, blinky=None):
@@ -128,15 +132,16 @@ class Inky(Ghost):
         """
         Inky scatters to the top right corner
         """
-        self.goal = Vector2(TILEWIDTH*NCOLS, TILEHEIGHT*NROWS)
+        self.goal = Vector2(TILEWIDTH * NCOLS, TILEHEIGHT * NROWS)
 
     def chase(self):
         """
         Inky chases two tiles ahead of pycman
         """
-        vector1 = self.pycman.position + self.pycman.direction * 2 * TILEWIDTH
+        vector1 = self.pycman.position + self.pycman.directions[self.pycman.direction] * 2 * TILEWIDTH
         vector2 = (vector1 - self.blinky.position) * 2
         self.goal = self.blinky.position + vector2
+
 
 class Clyde(Ghost):
     def __init__(self, node, pycman=None, blinky=None):
@@ -149,7 +154,7 @@ class Clyde(Ghost):
         """
         Clyde scatters to the bottom left corner
         """
-        self.goal = Vector2(0, TILEHEIGHT*NROWS)
+        self.goal = Vector2(0, TILEHEIGHT * NROWS)
 
     def chase(self):
         """
@@ -157,10 +162,11 @@ class Clyde(Ghost):
         """
         distance = self.pycman.position - self.position
         distance_squared = distance.magnitude_squared()
-        if distance_squared > 8 * TILEWIDTH**2:
+        if distance_squared <= 8 * TILEWIDTH ** 2:
             self.scatter()
         else:
             self.goal = self.pycman.position + self.pycman.directions[self.pycman.direction] * 4 * TILEWIDTH
+
 
 class GhostGroup(object):
     def __init__(self, node, pycman):
@@ -239,4 +245,3 @@ class GhostGroup(object):
         """
         for ghost in self.ghosts:
             ghost.render(surface)
-

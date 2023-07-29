@@ -3,19 +3,21 @@
 import pygame
 from pygame.locals import *
 from constants import *
-from vector import *
+from vector import Vector2
 from entity import Entity
 from sprites import PycmanSprites
+from random import randint
 
-class Pycman(object):
+
+class Pycman(Entity):
     def __init__(self, node):
-        Entity.__init__(self, node)
+        Entity.__init__(self, node )
         self.name = PYCMAN
         self.color = YELLOW
         self.direction = LEFT
         self.set_between_nodes(LEFT)
         self.alive = True
-        self.sprites = PycmanSprites()
+        self.sprites = PycmanSprites(self)
 
     def reset(self):
         """
@@ -61,18 +63,19 @@ class Pycman(object):
             if self.opposite_direction(direction):
                 self.reverse_direction()
 
+
     def get_valid_key(self):
         """
         Get the valid key
         """
         pressed = pygame.key.get_pressed()
-        if pressed[K_UP] or pressed[K_w]:
+        if pressed[K_UP]:
             return UP
-        if pressed[K_DOWN] or pressed[K_s]:
+        if pressed[K_DOWN]:
             return DOWN
-        if pressed[K_LEFT] or pressed[K_a]:
+        if pressed[K_LEFT]:
             return LEFT
-        if pressed[K_RIGHT] or pressed[K_d]:
+        if pressed[K_RIGHT]:
             return RIGHT
         return STOP
 
@@ -82,7 +85,6 @@ class Pycman(object):
         """
         for pellet in pellets:
             if self.collision(pellet):
-                pellet.eaten = True
                 return pellet
         return None
 
@@ -98,8 +100,7 @@ class Pycman(object):
         """
         distance = self.position - entity.position
         distance_squared = distance.magnitude_squared()
-        radii = self.radius + entity.radius
-        radii_squared = radii * radii
+        radii_squared = (self.collide_radius + entity.collide_radius) ** 2
         if distance_squared <= radii_squared:
             return True
         return False

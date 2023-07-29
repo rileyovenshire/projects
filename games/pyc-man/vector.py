@@ -9,13 +9,13 @@ class Vector2(object):
         self.y = y
         self.threshhold = 0.00001
 
-    def add(self, other):
+    def __add__(self, other):
         """
         Adds one vector to another.
         """
         return Vector2(self.x + other.x, self.y + other.y)
 
-    def sub(self, other):
+    def __sub__(self, other):
         """
         Subtracts one vector from another.
         """
@@ -59,7 +59,7 @@ class Vector2(object):
         """
         return math.sqrt(self.magnitude_squared())
 
-    def __copy__(self):
+    def copy(self):
         """
         Returns a copy of the vector.
         """
@@ -81,4 +81,4 @@ class Vector2(object):
         """
         Returns the vector as a string.
         """
-        return "Vector2({}, {})".format(self.x, self.y)
+        return "<"+str(self.x)+", "+str(self.y)+">"

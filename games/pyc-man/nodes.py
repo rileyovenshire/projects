@@ -139,7 +139,7 @@ class NodeGroup(object):
         self.create_node_table(home_data, x_off, y_off)
         self.connect_horizontally(home_data, x_off, y_off)
         self.connect_vertically(home_data, x_off, y_off)
-        self.home_key = self.construct_key(x_off, y_off)
+        self.home_key = self.construct_key(x_off + 2, y_off)
         return self.home_key
 
     def connect_home_nodes(self, home_key, alt_key, direction):
@@ -189,17 +189,15 @@ class NodeGroup(object):
         """
         Denies access to a node for a given list of entities
         """
-        node = self.get_node_from_grid(col, row)
-        if node is not None:
-            node.deny_access_list(direction, entity_list)
+        for entity in entity_list:
+            self.deny_access(col, row, direction, entity)
 
     def allow_access_list(self, col, row, direction, entity_list):
         """
         Allows access to a node for a given list of entities
         """
-        node = self.get_node_from_grid(col, row)
-        if node is not None:
-            node.allow_access_list(direction, entity_list)
+        for entity in entity_list:
+            self.allow_access(col, row, direction, entity)
 
     def deny_home_access(self, entity):
         """
@@ -218,14 +216,14 @@ class NodeGroup(object):
         Denies a list of entities from accessing the home node
         """
         for entity in entity_list:
-            self.deny_home_access()
+            self.deny_home_access(entity)
 
     def allow_home_access_list(self, entity_list):
         """
         Allows a list of entities to access the home node
         """
         for entity in entity_list:
-            self.allow_home_access()
+            self.allow_home_access(entity)
 
     def render(self, screen):
         """
