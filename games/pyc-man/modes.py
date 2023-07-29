@@ -53,7 +53,7 @@ class ModeController(object):
             self.timer += dt
             if self.timer >= self.time:
                 self.time = None
-                self.entity.normalMode()
+                self.entity.normal_mode()
                 self.current = self.main_mode.mode
         elif self.current in [SCATTER, CHASE]:
             self.current = self.main_mode.mode

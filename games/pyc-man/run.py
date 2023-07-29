@@ -177,7 +177,7 @@ class GameController(object):
                             self.textgroup.show_text(GAMEOVERTXT)
                             self.pause.set_pause(pause_time=3, func=self.restart_game)
                         else:
-                            self.pause.set_pause(pause_time=3, func=self.restart_level)
+                            self.pause.set_pause(pause_time=3, func=self.reset_level)
 
     def check_fruit_events(self):
         """
@@ -195,7 +195,7 @@ class GameController(object):
                     fruit_eaten = False
                     for fruit in self.fruit_eaten:
                         if fruit.get_offset() == self.fruit.image.get_offset():
-                            fruit_eaten = True
+                            self.fruit_eaten = True
                             break
                         if not fruit_eaten:
                             self.fruit_eaten.append(self.fruit.image)
@@ -248,7 +248,7 @@ class GameController(object):
         self.pycman.reset()
         self.ghosts.reset()
         self.fruit = None
-        self.textgroup.showText(READYTXT)
+        self.textgroup.show_text(READYTXT)
 
     def update_score(self, points):
         """

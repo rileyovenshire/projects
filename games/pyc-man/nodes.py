@@ -88,7 +88,7 @@ class NodeGroup(object):
                         self.nodes_lookup_table[key].neighbors[RIGHT] = self.nodes_lookup_table[alt_key]
                         self.nodes_lookup_table[alt_key].neighbors[LEFT] = self.nodes_lookup_table[key]
                         key = alt_key
-                elif data[row][col] in self.path_symbols:
+                elif data[row][col] not in self.path_symbols:
                     key = None
 
     def connect_vertically(self, data, x_off=0, y_off=0):
@@ -107,7 +107,7 @@ class NodeGroup(object):
                         self.nodes_lookup_table[key].neighbors[DOWN] = self.nodes_lookup_table[alt_key]
                         self.nodes_lookup_table[alt_key].neighbors[UP] = self.nodes_lookup_table[key]
                         key = alt_key
-                elif data[col][row] in self.path_symbols:
+                elif data[col][row] not in self.path_symbols:
                     key = None
 
     def get_start_temp_node(self):
