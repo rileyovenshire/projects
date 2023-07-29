@@ -4,6 +4,10 @@ from constants import *
 
 class Animator(object):
     def __init__(self, frames=[], speed=20, loop=True):
+        """
+        Takes in frames, speed and loops (if needed)
+        """
+        
         self.frames = frames
         self.current_frame = 0
         self.speed = speed
@@ -35,7 +39,7 @@ class Animator(object):
 
     def next_frame(self, dt):
         """
-        Go to the next frame
+        Go to the next frame. dt represents time passed from the last update, in seconds.
         """
         self.dt += dt
         if self.dt >= (1.0 / self.speed):
