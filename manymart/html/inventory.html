@@ -1,0 +1,137 @@
+<!-- Inventory Management -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ManyMart - Items</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+</head>
+<body>
+    <h1>ManyMart</h1>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Navigation Bar -->
+    <div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Orders</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="inventory.html">Items</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="shipments.html">Shipments</a></li>
+            </ul>
+          </nav>
+    </div>
+    <br>
+    <br>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Add a new item -->
+    <div>
+        <form action="item.php" method="post">
+            <fieldset>
+              <legend><strong>Add Item to Inventory</strong></legend>
+              <label for="item_id">Item ID</label>
+              <input type="text" name="item_id" id="item_id">
+              <label for="item_name">Item Name</label>
+              <input type="text" name="item_name" id="item_name">
+              <label for="price">Individual Price</label>
+              <input type="number" name="price" id="price">
+              <label for="quantity">Quantity</label>
+              <input type="number" name="quantity" id="quantity">
+              <label for="department">Department</label>
+                <select name="department" id="department">
+                    <option value="">Select a department</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="music">Music</option>
+                    <option value="books">Books</option>
+                </select>
+            </fieldset>
+            <input type="submit" value="Add Item">
+          </form>
+        </div>
+        <br>
+        <br>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Inventory Management -->
+    <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Department</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color: #ddd;">
+                <td>1</td>
+                <td>Samsung 65" OLED</td>
+                <td>$1700.00</td>
+                <td>10</td>
+                <td>Electronics</td>
+                <td><button href="#">Update</button></td>
+                <td><button href="#">Delete</button></td>
+              </tr>
+              <tr style="background-color: #fff;">
+                <td>2</td>
+                <td>Nike Hoodie</td>
+                <td>$40.00</td>
+                <td>20</td>
+                <td>Clothing</td>
+                <td><button href="#">Update</button></td>
+                <td><button href="#">Delete</button></td>
+              </tr>
+              <tr style="background-color: #ddd;">
+                <td>3</td>
+                <td>Enter the Wu-Tang (36 Chambers) CD</td>
+                <td>$10.00</td>
+                <td>30</td>
+                <td>Music</td>
+                <td><button href="#">Update</button></td>
+                <td><button href="#">Delete</button></td>
+              </tr>
+              <tr style="background-color: #fff;">
+                <td>4</td>
+                <td>Gravity's Rainbow</td>
+                <td>$18.00</td>
+                <td>40</td>
+                <td>Books</td>
+                <td><button href="#">Update</button></td>
+                <td><button href="#">Delete</button></td>
+              </tr>
+        </tbody>
+      </table>
+
+      <br>
+      <!------------------------------------------------------------------------->
+      <!-- Search for an item -->
+      <div>
+        <form action="/view-item" method="get">
+            <legend>  <strong>Search for Item</strong></legend>
+            <input type="text" name="item_id" placeholder="Find an Item">
+            <input type="submit" value="Search">
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                    <th>Quantity</th>
+                    <th>Department</th>
+                </tr>
+                </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+
+</body>

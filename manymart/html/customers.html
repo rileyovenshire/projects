@@ -1,1 +1,130 @@
+<!-- Customer Management -->
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ManyMart - Customers</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+</head>
+<body>
+    <h1>ManyMart</h1>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Navigation Bar -->
+    <div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Orders</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="inventory.html">Items</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="shipments.html">Shipments</a></li>
+            </ul>
+          </nav>
+    </div>
+    <br>
+    <br>
+    <!------------------------------------------------------------------------------------>
+    <!-- Add a Customer -->
+    <div>
+      <form action="add_customer.php" method="post">
+          <fieldset>
+            <!-- Will be given an ID when added to the database -->
+            <legend><strong>Add Customer</strong></legend>
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname" id="firstname">
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" id="lastname">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+          </fieldset>
+          <input type="submit" value="Add Customer">
+        </form>
+      </div>
+      <br>
+      <br>
+
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Customer Management -->
+    <table><caption><strong>Current Customers</strong></caption>
+        <thead>
+          <tr>
+            <th style="background-color: black;">ID</th>
+            <th style="background-color: black;">First Name</th>
+            <th style="background-color: black;">Last Name</th>
+            <th style="background-color: black;">Email</th>
+            <th style="background-color: black;">Active Orders</th>
+            <th style="background-color: black;">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background-color: #ddd;">
+            <td>1</td>
+            <td>Method</td>
+            <td>Man</td>
+            <td>methodman@gmail.com</td>
+            <td>0</td>
+                <td><button href="#">Delete</button></td>
+          </tr>
+          <tr style="background-color: #fff;">
+            <td>2</td>
+            <td>Eazy</td>
+            <td>E</td>
+            <td>ez_e@icloud.com</td>
+            <td>0</td>
+                <td><button href="#">Delete</button></td>
+          </tr>
+          <tr style="background-color: #ddd;">
+            <td>3</td>
+            <td>Mos</td>
+            <td>Def</td>
+            <td>mosdef_brooklyn@yahoo.com</td>
+            <td>0</td>
+                <td><button href="#">Delete</button></td>
+          </tr>
+          <tr style="background-color: #fff;">
+            <td>4</td>
+            <td>Notorious</td>
+            <td>BIG</td>
+            <td>biggie@gmail.com</td>
+            <td>0</td>
+            <td><button href="#">Delete</button></td>
+          </tr>
+          <tr style="background-color: #ddd;">
+            <td>5</td>
+            <td>Tupac</td>
+            <td>Shakur</td>
+            <td>tupac_shakur@icloud.com</td>
+            <td>0</td>
+                <td><button href="#">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+      <!-- Search current customers, by name -->
+    <div>
+      <form action="/view-customer" method="get">
+          <legend>  <strong>Search Customers</strong></legend>
+          <input type="text" name="customer_id" placeholder="Find a Customer">
+          <input type="submit" value="Search">
+          </form>
+          <table>
+              <thead>
+              <tr>
+                  <th>Customer ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Active Orders</th>
+              </tr>
+              </thead>
+          <tbody>
+          </tbody>
+          </table>
+      </div>
+
+</body>

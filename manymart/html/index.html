@@ -1,0 +1,120 @@
+
+<!-- Orders -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ManyMart - Orders</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h1>ManyMart</h1>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Navigation Bar -->
+    <div>
+        <nav>
+            <ul>
+              <li><a href="index.html">Orders</a></li>
+              <li><a href="customers.html">Customers</a></li>
+              <li><a href="inventory.html">Items</a></li>
+              <li><a href="departments.html">Departments</a></li>
+              <li><a href="shipments.html">Shipments</a></li>
+            </ul>
+          </nav>
+    </div>
+    <br>
+    <br>
+    
+    <!------------------------------------------------------------------------------------>
+    <!-- Placing new orders -->
+    <div>
+    <form action="order.php" method="post">
+        <fieldset>
+          <legend><strong>Place An Order</strong></legend>
+          <!-- Will be given an ID when added to the database -->
+
+          <label for="firstname">First Name</label>
+          <input type="text" name="firstname" id="firstname">
+          <label for="lastname">Last Name</label>
+          <input type="text" name="lastname" id="lastname">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email">
+          <label for="quantity">Quantity</label>
+          <input type="number" name="quantity" id="quantity">
+        </fieldset>
+        <input type="submit" value="Place Order">
+      </form>
+    </div>
+    <br>
+    <br>
+    
+    <!------------------------------------------------------------------------------------>
+    <!-- Managing Active Orders -->
+    <div>
+      <table><caption><strong>Active Orders</strong></caption>
+        <thead>
+          <tr>
+            <th style="background-color: black;">Order ID</th>
+            <th style="background-color: black;">Customer ID</th>
+            <th style="background-color: black;">Shipment ID</th>
+            <th style="background-color: black;">Order Date</th>
+            <th style="background-color: black;">Update</th>
+            <th style="background-color: black;">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background-color: #ddd;">
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>2019-01-01</td>
+            <td><button href="#">Update</button></td>
+            <td><button href="#">Delete</button></td>
+          </tr>
+          <tr style="background-color: #fff;">
+            <td>2</td>
+            <td>2</td>
+            <td>2</td>
+            <td>2019-01-02</td>
+            <td><button href="#">Update</button></td>
+            <td><button href="#">Delete</button></td>
+          </tr>
+          <tr style="background-color: #ddd;">
+            <td>3</td>
+            <td>3</td>
+            <td>3</td>
+            <td>2019-01-03</td>
+            <td><button href="#">Update</button></td>
+            <td><button href="#">Delete</button></td>
+        </tbody>
+      </table>
+    </div>  
+    <br>
+    <br>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- View Individual Orders, see item contents -->
+    <div>
+    <form action="/view-order" method="get">
+        <legend>  <strong>Find An Order</strong></legend>
+        <input type="text" name="order_id" placeholder="Find an order">
+        <input type="submit" value="Search">
+        </form>
+        <table>
+            <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Customer ID</th>
+                <th>Order Date</th>
+                <th>Items</th>
+            </tr>
+            </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+</body>
+</html>

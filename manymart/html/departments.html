@@ -1,0 +1,100 @@
+<!-- Departments -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ManyMart - Departments</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+</head>
+<body>
+    <h1>ManyMart</h1>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Navigation Bar -->
+    <div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Orders</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="inventory.html">Items</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="shipments.html">Shipments</a></li> 
+            </ul>
+          </nav>
+    </div>
+    <br>
+    <br>
+    <!------------------------------------------------------------------------------------>
+    <!-- Create New Department -->
+    <div>
+      <form action="add_dept.php" method="post">
+          <fieldset>
+            <legend><strong>Add Department</strong></legend>
+            <label for="dept_name">Department Name</label>
+            <input type="text" name="dept_name" id="dept_name">
+
+          </fieldset>
+          <input type="submit" value="Add Department">
+        </form>
+      </div>
+      <br>
+      <br>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Department Management -->
+    <table><caption><strong>Department Management</strong></caption>
+      <thead>
+        <tr>
+          <th style="background-color: black;">Department ID</th>
+          <th style="background-color: black;">Department Name</th>
+          <th style="background-color: black;">Department Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #ddd;">
+            <td>1</td>
+            <td>Electronics</td>
+            <td>10</td>
+        </tr>
+        <tr style="background-color: #fff;">
+            <td>2</td>
+            <td>Clothing</td>
+            <td>20</td>
+        </tr>
+        <tr style="background-color: #ddd;">
+          <td>3</td>
+          <td>Music</td>
+          <td>30</td>
+        <tr style="background-color: #fff;">
+            <td>4</td>
+            <td>Books</td>
+            <td>40</td>
+        </tr>  
+      </tbody>
+    </table>
+
+    <br>
+
+    <!------------------------------------------------------------------------->
+      <!-- Search departments, view items -->
+      <div>
+        <form action="/view-departments" method="get">
+            <legend>  <strong>Search Departments</strong></legend>
+            <input type="text" name="department_id" placeholder="Find Departments">
+            <input type="submit" value="Search">
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th>Department ID</th>
+                    <th>Department Name</th>
+                    <th>Items</th>
+                    <th>Total Stock</th>
+                </tr>
+                </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>

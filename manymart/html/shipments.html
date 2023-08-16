@@ -1,0 +1,110 @@
+<!-- Shipments -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ManyMart - Shipments</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+</head>
+<body>
+    <h1>ManyMart</h1>
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Navigation Bar -->
+    <div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Orders</a></li>
+                <li><a href="customers.html">Customers</a></li>
+                <li><a href="inventory.html">Items</a></li>
+                <li><a href="departments.html">Departments</a></li>
+                <li><a href="shipments.html">Shipments</a></li>
+            </ul>
+          </nav>
+    </div>
+    <br>
+    <br>
+    <!------------------------------------------------------------------------------------>
+    <!-- Add a New Shipment -->
+    <div>
+      <form action="shipment.php" method="post">
+          <fieldset>
+            <legend><strong>Add a Shipment</strong></legend>
+            <label for="order_id">Order ID</label>
+            <input type="text" name="order_id" id="order_id">
+            <label for="shipment_date">Shipment Date</label>
+            <input type="date" name="shipment_date" id="shipment_date">
+          </fieldset>
+          <input type="submit" value="Confirm Shipment">
+        </form>
+      </div>
+      <br>
+      <br>
+
+
+    <!------------------------------------------------------------------------------------>
+    <!-- Shipment Management -->
+    <table><caption><strong>Shipment Management</strong></caption>
+      <thead>
+        <tr>
+          <th style="background-color: black;">Shipment ID</th>
+          <th style="background-color: black;">Order ID</th>
+          <th style="background-color: black;">Shipment Date</th>
+          <th style="background-color: black;">Shipment Status</th>
+          <th style="background-color: black;">Update</th>
+          <th style="background-color: black;">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="background-color: #ddd;">
+          <td>1</td>
+          <td>1</td>
+          <td>2019-01-01</td>
+          <td>1</td>
+          <td><button href="#">Update</button></td>
+          <td><button href="#">Delete</button></td>
+        </tr>
+        <tr style="background-color: #fff;">
+          <td>2</td>
+          <td>2</td>
+          <td>2019-01-02</td>
+          <td>1</td>
+          <td><button href="#">Update</button></td>
+          <td><button href="#">Delete</button></td>
+        </tr>
+        <tr style="background-color: #ddd;">
+          <td>3</td>
+          <td>3</td>
+          <td>2019-01-03</td>
+          <td>1</td>
+          <td><button href="#">Update</button></td>
+          <td><button href="#">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br>
+
+    <!------------------------------------------------------------------------->
+      <!-- Find Order by Shipment -->
+      <div>
+        <form action="/view-shipment" method="get">
+            <legend>  <strong>Search for Item</strong></legend>
+            <input type="text" name="shipment_id" placeholder="Find Shipment">
+            <input type="submit" value="Search">
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th>Shipment ID</th>
+                    <th>Order ID</th>
+                    <th>Shipment Date</th>
+                    <th>Shipment Status</th>
+                </tr>
+                </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
