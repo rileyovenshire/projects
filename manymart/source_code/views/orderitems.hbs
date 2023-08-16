@@ -1,0 +1,60 @@
+{{!-- // Authors: Riley Ovenshire and Triston Osborn
+
+// Code has been altered from the nodejs-starter-app tutorial
+
+Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main --}}
+
+
+{{!-- Create a table --}}
+<table id="orderitems-table">
+<h2>Order Items</h2>
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Order Item ID</th>
+            <th>Order ID</th>
+            <th>Item ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+
+        {{#each orderitems}}
+        <tr>
+            <td>{{this.order_item_id}}</td>
+            <td>{{this.order_id}}</td>
+            <td>{{this.item_id}}</td>
+            <td><button onclick="deleteOrderItem({{this.order_item_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_orderitems.js"></script>
+
+<h2>Add Order Item</h2>
+<p>To add a new Order Item, please complete the form below and hit 'Submit'.</p>
+
+<form id="add-orderitem-form">
+
+    <div class="form-group">
+    <label for="input-order-id">Order ID: </label>
+    <input type='text' name="input-order-id" id="input-order-id">
+    </div>
+
+    <div class="form-group">
+    <label for="input-item-id">Item ID: </label>
+    <input type="text" name="input-item-id" id="input-item-id">
+
+    </div>
+
+    <input type="submit">
+</form>
+
+<script src="./js/add_orderitem.js"></script>
+

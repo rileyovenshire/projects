@@ -1,0 +1,80 @@
+{{!-- // Authors: Riley Ovenshire and Triston Osborn
+
+// Code has been altered from the nodejs-starter-app tutorial
+
+Source: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main --}}
+
+{{!-- Create a table --}}
+<table id="departments-table">
+<h2>Departments</h2>
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            <th>Department ID</th>
+            <th>Department Name</th>
+            <th>Item Amt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+
+        {{#each departments}}
+        <tr>
+            <td>{{this.department_id}}</td>
+            <td>{{this.department_name}}</td>
+            <td>{{this.dept_quantity}}</td>
+            <td><button onclick="deleteDepartment({{this.department_id}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_department.js"></script>
+
+<h2>Add Department</h2>
+<p>To add a new Department, please complete the form below and hit 'Submit'.</p>
+
+<form id="add-department-form">
+
+    <div class="form-group">
+    <label for="input-department-name">Department Name: </label>
+    <input type="text" name="input-department-name" id="input-department-name">
+    </div>
+
+    <div class="form-group">
+    <label for="input-department-amount">Item Amount: </label>
+    <input type="number" name="input-department-amount" id="input-department-amount">
+    </div>
+
+    <input type="submit">
+</form>
+
+<script src="./js/add_department.js"></script>
+
+<h2>Updating A Department</h2>
+<p>To update a specific Department select their name from the drop-down menu on the left and enter quantity</p>
+<form id="update-department-form">
+
+    <label for="input-deptName-update">Department name: </label>
+    <select name="input-deptName-update" id="input-deptName-update">
+        <option value="test">Select a Department</option>
+        {{#each departments}}
+        <option value="{{this.department_name}}">{{this.department_name}}</option>
+        {{/each}}
+    </select>
+
+    <div class="form-group">
+    <label for="input-deptAmount-update">Item Amount: </label>
+    <input type="number" name="input-deptAmount-update" id="input-deptAmount-update">
+    </div>
+
+    <input type="submit">
+
+</form>
+
+<script src="./js/update_department.js"></script>
