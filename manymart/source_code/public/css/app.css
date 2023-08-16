@@ -1,1 +1,240 @@
+/* Imports  */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300&display=swap');
 
+:root {
+  --primary-bg: #FFFFFF;
+  --primary-text: #333333;
+
+  --secondary-bg: #F4F4F4;
+  --secondary-text: #666666;
+  --secondary-accent: #4CAF50;
+}
+
+div {
+  background-color: var(--secondary-bg);
+  margin: 10px
+}
+
+head {
+  font-family: 'Sora', sans-serif;
+}
+
+h1 {
+  font-family: 'Sora', sans-serif;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1.5rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 p:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+nav {
+  background-color: var(--secondary-accent);
+  color: #fff;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+nav a {
+  font-family: 'Sora', sans-serif;
+  font-weight: 300;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  margin: 0 10px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+nav a:hover {
+  background-color: #fff;
+  color: #333;
+  border-color: #fff;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--secondary-accent);
+  border-radius: 5px;
+  background-color: var(--secondary-bg);
+  color: var(--primary-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p a {
+  color: var(--accent-1);
+  text-decoration: underline;
+  transition: color 0.3s ease-in-out;
+}
+
+p a:hover {
+  color: var(--accent-2);
+}
+
+#descriptions .content-list {
+  list-style: none;
+  padding-left: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#descriptions .content-list li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#descriptions .content-list li strong a {
+  color: #4CAF50;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+#descriptions .content-list li strong a:hover {
+  color: #fff;
+  background-color: var(--secondary-text);
+  text-decoration: underline;
+}
+
+button {
+  font-family: 'Sora', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group button [type="form-submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form-group button [type="form-submit"]:hover {
+  background-color: #45a049;
+}
+
+body {
+  font-family: 'Sora', sans-serif;
+  background-color: #333;
+
+}
+
+table {
+  font-family: 'Sora', sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd
+}
+
+table th {
+  background-color: #333;
+  color: #fff;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f4f4f4;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table tbody tr:hover {
+  background-color: #ddd;
+}
+
+select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+select option {
+  background-color: #fff;
+  color: #333;
+}
+
+select option:hover {
+  background-color: #f4f4f4;
+}
+
+footer {
+  background-color: #4CAF50;
+  text-align: center;
+  padding: .5 rem 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+footer p {
+  font-family: 'Sora', sans-serif;
+  font-weight: 300;
+  font-size: .7rem;
+}
+
+footer p:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+footer p {
+  display: inline-block;
+  margin: 0 auto;
+}
