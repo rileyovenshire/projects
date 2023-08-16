@@ -8,34 +8,31 @@
 // // https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main/Step%205%20-%20Adding%20New%20Data
 
 // Get the objects we need to modify
-let addOrderForm = document.getElementById('add-order-form-ajax');
+let addDepartmentForm = document.getElementById('add-department-form');
 
 // Modify the objects we need
-addOrderForm.addEventListener("submit", function (e) {
-    
+addDepartmentForm.addEventListener("submit", function (e) {
+
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputCustomerID = document.getElementById("input-customer-id");
-    // let inputShipmentID = document.getElementById("input-shipment-id");
-    let inputOrderDate = document.getElementById("input-order-date");
+    let inputDeptName = document.getElementById("input-department-name");
+    let inputDeptQuant = document.getElementById("input-department-amount");
 
     // Get the values from the form fields
-    let customerIDValue = inputCustomerID.value;
-    // let shipmentIDValue = inputShipmentID.value;
-    let orderDateValue = inputOrderDate.value;
+    let deptNameValue = inputDeptName.value;
+    let deptQuantValue = inputDeptQuant.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        customerID: customerIDValue,
-        // shipmentID: shipmentIDValue,
-        orderDate: orderDateValue,
+        dName: deptNameValue,
+        dQuant: deptQuantValue
     }
-    
+
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/add-order", true);
+    xhttp.open("POST", "/add-department", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -46,9 +43,8 @@ addOrderForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputCustomerID.value = '';
-            // inputShipmentID.value = '';
-            inputOrderDate.value = '';
+            inputDeptName.value = '';
+            inputDeptQuant.value = '';
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
             console.log("There was an error with the input.")
@@ -60,11 +56,12 @@ addOrderForm.addEventListener("submit", function (e) {
 
 })
 
+
 // Creates a single row from an Object representing a single record
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
-    let currentTable = document.getElementById("orders-table");
+    let currentTable = document.getElementById("departments-table");
 
     // Get the location where we should insert the new row (end of table)
     let newRowIndex = currentTable.rows.length;
@@ -75,39 +72,35 @@ addRowToTable = (data) => {
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
-    let orderidCell = document.createElement("TD");
-    let customerIDCell = document.createElement("TD");
-    let shipmentIDCell = document.createElement("TD");
-    let orderDateCell = document.createElement("TD");
+    let deptIDCell = document.createElement("TD");
+    let deptNameCell = document.createElement("TD");
+    let deptQuantCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    orderidCell.innerText = newRow.order_id;
-    customerIDCell.innerText = newRow.customer_id;
-    shipmentIDCell.innerText = newRow.shipment_id;
-    orderDateCell.innerText = newRow.order_date;
+    deptIDCell.innerText = newRow.department_id;
+    deptNameCell.innerText = newRow.department_name;
+    deptQuantCell.innerText = newRow.dept_quantity;
 
     deleteCell = document.createElement("button");
     deleteCell.innerHTML = "Delete";
     deleteCell.onclick = function(){
-        deleteOrder(newRow.order_id);
+        deleteDepartment(newRow.department_id);
     };
 
     // Add the cells to the row 
-    row.appendChild(orderidCell);
-    row.appendChild(customerIDCell);
-    row.appendChild(shipmentIDCell);
-    row.appendChild(orderDateCell);
+    row.appendChild(deptIDCell);
+    row.appendChild(deptNameCell);
+    row.appendChild(deptQuantCell);
     row.appendChild(deleteCell);
 
-    
-    row.setAttribute('data-value', newRow.order_id);
+    row.setAttribute('data-value', newRow.department_id);
 
     // Add the row to the table
     currentTable.appendChild(row);
 
-    let selectMenu = document.getElementById("order-select");
+    let selectMenu = document.getElementById("input-deptName-update");
     let option = document.createElement("option");
-    option.text = newRow.order_id;
-    option.value = newRow.order_id;
-    selectMenu.add(option);
+    option.text = newRow.department_name;
+    option.value = newRow.department_id;
+    selectMenu.add(option); 
 }
