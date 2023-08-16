@@ -117,26 +117,26 @@ END;
 
 DELIMITER ;
 
--- DELIMITER //
+DELIMITER //
 
---     CREATE PROCEDURE CreateOrderWithShipment(IN orderDate date, IN customerID int)
---     BEGIN
---         -- Declare variable
---         DECLARE temp_id INT;
+    CREATE PROCEDURE CreateOrderWithShipment(IN orderDate date, IN customerID int)
+    BEGIN
+        -- Declare variable
+        DECLARE temp_id INT;
 
---         -- Insert a new Order
---         INSERT INTO Orders (customer_id, order_date) VALUES (customerID, orderDate);
---         SET temp_id = LAST_INSERT_ID(); -- Save the Order's primary key
+        -- Insert a new Order
+        INSERT INTO Orders (customer_id, order_date) VALUES (customerID, orderDate);
+        SET temp_id = LAST_INSERT_ID(); -- Save the Order's primary key
 
---         -- Insert a new Shipment
---         INSERT INTO Shipments (order_id, shipment_date, shipment_status) VALUES (temp_id, CURDATE(), 0);
+        -- Insert a new Shipment
+        INSERT INTO Shipments (order_id, shipment_date, shipment_status) VALUES (temp_id, CURDATE(), 0);
 
---         -- Update the foreign key in Orders with the generated primary key of the Shipment
---         UPDATE Orders SET shipment_id = LAST_INSERT_ID() WHERE order_id = temp_id;
---     END;
+        -- Update the foreign key in Orders with the generated primary key of the Shipment
+        UPDATE Orders SET shipment_id = LAST_INSERT_ID() WHERE order_id = temp_id;
+    END;
 
--- //
--- DELIMITER ;
+//
+DELIMITER ;
 
 -- Enable foreign key checks
 SET FOREIGN_KEY_CHECKS=1;
