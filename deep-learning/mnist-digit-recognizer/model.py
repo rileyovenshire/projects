@@ -63,7 +63,7 @@ def config_model():
 
     # loss function: quantifies the error between the predicted output and the actual target values
     model.compile(loss='categorical_crossentropy',  # for multi-class problems
-                  optimizer=Adam(lr=1e-3),  # 0.001 learning rate, Adam optimizer
+                  optimizer=Adam(learning_rate=1e-3),  # 0.001 learning rate, Adam optimizer
                   metrics=["accuracy"])
 
     # -------------------------------------Learning Rate Scheduler------------------------------------------
