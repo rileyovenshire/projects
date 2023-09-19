@@ -84,7 +84,7 @@ print('Saved!')
 
 # check log for accuracy, plot the data
 plt.plot(history.history['acc'])
-plt.plot(history.history['val_acc'])
+plt.plot(history.history['val_accuracy'])
 plt.title('MNIST Model Accuracy')
 plt.ylabel('Accuracy')
 plt.xlabel('Epoch')

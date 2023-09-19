@@ -68,7 +68,7 @@ def config_model():
 
     # -------------------------------------Learning Rate Scheduler------------------------------------------
 
-    lrs = ReduceLROnPlateau(monitor='val_acc',
+    lrs = ReduceLROnPlateau(monitor='val_accuracy',
                             patience=1,
                             # number of epochs with no improvement, will reduce if validation accuracy doesn't improve for one epoch
                             verbose=2,  # print message when learning rate changes
