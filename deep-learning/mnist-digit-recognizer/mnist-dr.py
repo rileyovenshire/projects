@@ -57,7 +57,7 @@ batch_size = 64
 validation_steps = 10000
 
 # -------------------------------------Init Model, Learning Rate Scheduler and Data------------------------------------------
-model, lrs, data = md.init_model()
+model, lrs, data = md.config_model()
 
 # -------------------------------------Begin Training------------------------------------------
 
@@ -99,5 +99,36 @@ plt.ylabel('Losses')
 plt.xlabel('Epoch')
 plt.legend(['train', 'test'], loc='upper right')
 plt.show()
+
+# -------------------------------------Use Trained Model to Make Predictions on Test Data------------------------------------------
+test = pd.read_csv('./input/test.csv')
+print(test.shape)
+test = test / 255       # RGB vals
+test = test.values.reshape(-1, 28, 28, 1)       # 28x28 px
+
+# model.predict() method returns a probability distribution for each digit
+# np.argmax() is used to find the class with the highest probability for each sample
+prediction = np.argmax(model.predict(x_test), axis=1)
+
+print('Base model scores: ')
+valid_loss, valid_acc = model.evaluate(x_test, Y_test, verbose=0)       # evaluate performance on validation data
+valid_predict = np.argmax(model.predict(test), axis=1)
+
+target = np.argmax(Y_test, axis=1)
+
+# calculate and print confusion matrix
+#   - https://www.sciencedirect.com/topics/engineering/confusion-matrix#:~:text=A%20confusion%20matrix%20represents%20the,by%20model%20as%20other%20class.
+confusion_matrix = confusion_matrix(target, valid_predict)
+print(confusion_matrix)
+
+# -------------------------------------File to CSV for Submission (Kaggle)------------------------------------------
+submit = pd.DataFrame(pd.Series(range(1, prediction.shape[0] + 1), name='ImageID'))
+submit['Label'] = prediction
+filename = 'keras-nums-{0}.csv'.format(str(int(score[1]*10000)))
+submit.to_csv(filename, index=False)
+
+total_time = time.time() - start_time
+print('Elapsed time: {0}'.format(time.strftime("%H:%M:%S", time.gmtime(total_time))))
+
 
 
