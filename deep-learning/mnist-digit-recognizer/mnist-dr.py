@@ -79,11 +79,11 @@ score = model.evaluate(x_test, Y_test)
 print('Test accuracy: ', score[1])
 
 # save model for future API (pulled from medium.com source - see readme)
-model.save('mnist-testing.h5')
+model.save('mnist-testing.keras')
 print('Saved!')
 
 # check log for accuracy, plot the data
-plt.plot(history.history['acc'])
+plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
 plt.title('MNIST Model Accuracy')
 plt.ylabel('Accuracy')
