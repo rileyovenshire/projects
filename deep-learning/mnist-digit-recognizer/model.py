@@ -27,6 +27,7 @@ def config_model():
 
     # first convolutional layer with 32 filters, each 5x5 in size
     # activation function is Rectified Linear Unit (relu)
+    #     output the input directly if it is positive, otherwise output zero
     # input shape is 28x28 pixels with 1 channel (grayscale)
     model.add(Conv2D(filters=32,
                      kernel_size=(5, 5),
