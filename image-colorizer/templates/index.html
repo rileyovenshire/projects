@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<!------------------------------------------------------------------------------------------------------------>
+
+
+<div class="header">
+    <h1 class="title">Photo Colorizer</h1>
+    <p class="description">Welcome to my Photo Colorizer! Simply upload a photo using the button below, and choose your desired colorization options. You can view all your uploaded photos in a grid below and select any to recolor or edit further.</p>
+</div>
+
+<div class="upload-area">
+    <h2>Upload Photo</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Upload Image</button>
+    </form>
+</div>
+
+<div class="images-grid">
+
+    <h2>Uploaded Photos:</h2>
+        {% for image in images %}
+        <div class="image-tile" onclick="showFullImage('{{ url_for('static', filename='uploads/' + image) }}')">
+            <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Uploaded Image">
+        </div>
+        {% endfor %}
+    </div>
+
+    <!------------------------------------------------------------------------------------------------------------>
+    <!-- The Modal -->
+    <!------------------------------------------------------------------------------------------------------------>
+
+    <div id="myModal" class="modal">
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="fullImage" src="" alt="Full Size Image">
+            <button id="recolorButton">Recolor</button>
+            <button id="editButton">Edit</button>
+            <button id="deleteButton" data-filename="">Delete</button>
+
+        </div>
+    </div>
+
+    <!------------------------------------------------------------------------------------------------------------>
+    <!-- JavaScript to open the modal with the full image -->
+    <!------------------------------------------------------------------------------------------------------------>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the image and insert it inside the modal
+        var fullImage = document.getElementById("fullImage");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+    // SHOW IMAGE --------------------------------------------------------------------------------------------------
+
+        function showFullImage(imageSrc) {
+          fullImage.src = imageSrc;
+          // Set the data-filename attribute to the image file name
+          document.getElementById("deleteButton").setAttribute("data-filename", imageSrc.split('/').pop());
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+
+    // DELETE IMAGE ------------------------------------------------------------------------------------------------
+
+    function deleteImage(filename) {
+      // Use encodeURIComponent to ensure the filename is correctly encoded for the URL
+      fetch('/delete/' + encodeURIComponent(filename), { method: 'POST' })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.success) {
+            // Remove the image element from the DOM
+            let imgElement = document.querySelector(`img[src$='${filename}']`);
+            if (imgElement) {
+              imgElement.parentElement.remove(); // This removes the .image-tile div
+            }
+            // Close the modal
+            modal.style.display = "none";
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        })
+        .finally(() => {
+          // Re-enable the delete button if there was an error
+          document.getElementById("deleteButton").disabled = false;
+        });
+    }
+
+    // EVENT LISTENERS ---------------------------------------------------------------------------------------------
+
+          document.getElementById("recolorButton").onclick = function() {
+            window.location.href = "/recolor?image=" + encodeURIComponent(fullImage.src);
+          };
+
+          document.getElementById("editButton").onclick = function() {
+            window.location.href = "/edit?image=" + encodeURIComponent(fullImage.src);
+          };
+
+        document.getElementById("deleteButton").addEventListener('click', function() {
+          var filename = this.getAttribute('data-filename');
+          deleteImage(filename);
+        });
+
+    </script>
+
+</div>
+{% include '_footer.html' %}
