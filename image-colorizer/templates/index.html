@@ -16,12 +16,14 @@
 </div>
 
 <div class="upload-area">
-    <h2>Upload Photo</h2>
     <form action="/" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
+        <input type="file" id="fileInput" name="file" style="display: none;">
+        <button type="button" id="uploadTrigger" class="custom-file-upload">Choose File</button>
+        <span id="fileName">No file chosen</span>
         <button type="submit">Upload Image</button>
     </form>
 </div>
+
 
 <div class="images-grid">
 
@@ -130,6 +132,15 @@
         document.getElementById("deleteButton").addEventListener('click', function() {
           var filename = this.getAttribute('data-filename');
           deleteImage(filename);
+        });
+
+            document.getElementById('uploadTrigger').addEventListener('click', function() {
+            document.getElementById('fileInput').click(); // Trigger the file input click
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            var fileName = this.value.split('\\').pop(); // Get the file name
+            document.getElementById('fileName').textContent = fileName; // Display the file name
         });
 
     </script>
