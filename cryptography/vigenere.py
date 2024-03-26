@@ -8,31 +8,28 @@ def gen_key(msg, key):
     '''
     if len(msg) == len(key):
         return key
-    else: 
-        # repeat key until is matches msg len
+    else:
+        key = list(key)
         for i in range(len(msg) - len(key)):
-            keyword += keyword[i % len(key)]
-    return key
+            key.append(key[i % len(key)])
+    return "".join(key)
 
 def encrypt(msg, key):
     '''
     encrypt the message using the vigenere ciper
     '''
     cipher = ''
-    for i in range(len(msg)):
-        if msg[i].isalpha()
-        # if character is a letter, shift the letters according to key
-        # convert alphanumerically w/ zero index A, add shift, convert back
-        shift = ord(key[i].upper()) - ord('A')
-        if msg[i].isupper():
-            cipher += chr((ord(msg[i]) + shift - ord('A')) % 26 + ord('A'))
+    k_index = 0
+    for i in msg:
+        if i.isalpha():
+            shift = ord(key[k_index].upper()) - ord('A')
+            k_index = (k_index + 1) % len(key)
+            if i.isupper():
+                cipher += chr((ord(i) + shift - ord('A')) % 26 + ord('A'))
+            else:
+                cipher += chr((ord(i) + shift - ord('a')) % 26 + ord('a'))
         else:
-            cipher += chr((ord(msg[i] + shift - ord('a')) % 26 + ord('a'))
-
-    else:
-        # if char is a special character, leave it
-        cipher += message[i]
-
+            cipher += i
     return cipher
 
 
@@ -41,4 +38,30 @@ def decrypt(cipher, key):
     Decrypt the message using vigenere
     '''
     decrypted = ''
-    
+    k_index = 0
+    for i in cipher:
+        if i.isalpha():
+            shift = ord(key[k_index].upper()) - ord('A')
+            k_index = (k_index + 1) % len(key)
+            if i.isupper():
+                decrypted += chr((ord(i) - shift - ord('A')) % 26 + ord('A'))
+            else:
+                decrypted += chr((ord(i) - shift - ord('a')) % 26 + ord('a'))
+        else:
+            decrypted += i
+    return decrypted
+
+# ----------------------------
+if __name__ == '__main__':
+    msg = input('Enter message: ')
+    key = input('Enter key: ')
+
+    key = gen_key(msg, key)
+
+    encrypted = encrypt(msg, key)
+    print("Encrypted: ", encrypted)
+
+
+    decrypted = decrypt(encrypted, key)
+    print("Decrypted: ", decrypted)
+
