@@ -11,6 +11,7 @@
  * Packet Sniffer
  *
  * This project was completed by way of a tutorial put on by Vic Hargrave. This is my first real foray into network programming, and I am extremely grateful for his contributions to the open-source community and I am so glad I was able to complete this project thanks to him. 
+ * Direct link - https://vichargrave.github.io/programming/develop-a-packet-sniffer-with-libpcap/
  *
  * This program collects raw IP packets and inspects their header and payload fields. It collects: 
  * 	- protocol type
